@@ -1,0 +1,60 @@
+<html>
+
+<head>
+  <script src="https://api.songle.jp/v2/api.js"></script>
+  <script>
+    function onSongleAPIReady(Songle) {
+
+      // 音楽プレーヤーを初期化する
+      var player = new Songle.Player({
+        accessToken: '000000be-zowhpvB' // アクセストークン
+      });
+      player.addPlugin(new Songle.Plugin.SongleSync());
+      player.useMedia('https://youtu.be/PlcSEH9n2OM');
+
+      // 再生時刻を定期的に更新する
+      var span = document.querySelector('span.time');
+      setInterval(function () {
+        while (span.childNodes.length > 0) span.removeChild(span.childNodes[0]);
+        var textNode = document.createTextNode(parseInt(player.position));
+        span.appendChild(textNode);
+      }, 100);
+    }
+  </script>
+  <style type="text/css">
+    body {
+      margin: 1em;
+      font-family: 'Hiragino Kaku Gothic Pro', '游ゴシック体', 'Yu Gothic', YuGothic, Meiryo, HelveticaNeue, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+
+    h1 {
+      font-size: 1.6em;
+      border: solid #000;
+      border-width: 0 0 1px 0;
+    }
+
+    iframe {
+      max-width: 100%;
+      overflow-x: scroll-x;
+    }
+
+    p>span {
+      font-weight: bold;
+    }
+
+    * {
+      transform: scale(1.4, 1.4);
+      position: relative;
+      top: 30%;
+      left: 20%;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- <h1>Slave</h1> -->
+  <div class="media"></div>
+  <!-- <p>再生時刻: <span class="time">-</span>[ms]</p> -->
+</body>
+
+</html>
